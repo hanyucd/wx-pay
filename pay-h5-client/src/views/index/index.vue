@@ -30,7 +30,7 @@ export default {
 
 .btn-group {
   position: fixed;
-  bottom: 2rem;
+  bottom: 1rem;
   left: 50%;
   transform: translateX(-50%);
 }
