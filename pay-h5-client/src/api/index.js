@@ -4,17 +4,6 @@ const baseUrl = 'http://localhost:3000/api';
 
 /**
  * 获取微信配置
- * @param {*} href 路由地址 后台根据当前url地址进行签名
- */
-//  export const wechatConfig = async href => {
-//    return request({
-//      url: `${ baseUrl }/api/wechat/jssdk?url=${href}`,
-//      method: 'get'
-//    });
-// };
-
-/**
- * 获取微信配置
  */
 export const getWechatConfig = href => {
   return request({
@@ -22,9 +11,6 @@ export const getWechatConfig = href => {
     method: 'get'
   });
 };
-
-
-
 
 /**
  * 微信重定向
@@ -34,8 +20,22 @@ export const getWechatConfig = href => {
  */
  export const wechatRedirect = url => {
   url = window.encodeURIComponent(url)
-  return `/api/wechat/redirect?url=${ url }&scope=snsapi_userinfo`
+  return request({
+    url: `${ baseUrl }/wechat/redirect?url=${ url }&scope=snsapi_userinfo`,
+    method: 'get'
+  })
 };
+
+
+
+
+
+
+
+
+
+
+
 
 
 

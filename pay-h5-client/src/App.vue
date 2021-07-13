@@ -16,16 +16,20 @@ export default {
   },
   mounted() {
     this._checkUserAuth();
+
+    // this.getWechatConfig();
   },
   methods: {
     /**
      * 检查用户是否授权过
      */
-    _checkUserAuth() {
-      // let openId = this.$cookie.get('openId');
-      // if (!openId) {
-      //   window.location.href = wechatRedirect(location.origin);
-      // }
+    async _checkUserAuth() {
+      let openId = this.$cookie.get('openId');
+      if (!openId) {
+        // window.location.href = wechatRedirect(location.origin);
+        const result = await wechatRedirect(location.origin);
+        console.log(result);
+      }
 
       // const appid = 'wx89d78fda8c962552';
       // // let redirectUri = encodeURIComponent('http://www.baidu.com'); //处理域名
