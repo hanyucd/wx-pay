@@ -27,15 +27,16 @@ export default {
       let openId = this.$cookie.get('openId');
       if (!openId) {
         // window.location.href = wechatRedirect(location.origin);
-        const result = await wechatRedirect(location.origin);
+        const result = await wechatRedirect();
         console.log(result);
       }
 
       // const appid = 'wx89d78fda8c962552';
-      // // let redirectUri = encodeURIComponent('http://www.baidu.com'); //处理域名
-      // let redirectUri = encodeURIComponent('http://92d177f43f22.ngrok.io'); //处理域名
+      // let redirectUri = encodeURIComponent('http://baidu.com'); //处理域名
+      // let redirectUri = encodeURIComponent('http://0d729f3e3886.ngrok.io'); //处理域名
+      // let redirectUri = encodeURIComponent('http://127.0.0.1:8080'); //处理域名
       // console.log(redirectUri)
-      // // let scope = 'snsapi_base';
+      // let scope = 'snsapi_base';
       // let scope = 'snsapi_userinfo';
       // window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${ appid }&redirect_uri=${ redirectUri }&response_type=code&scope=${ scope }&state=STATE#wechat_redire`;
     },
