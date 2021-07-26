@@ -4,7 +4,7 @@
 		key: ''
 	},
 	wx: {
-		appId: 'wx89d78fda8c962552',
+		appId: 'wx89d78fda8c962552', // 测试号 appid
 		appSecret: '41d433fe0e3194e1aff2d607c585be65'
 	},
 	mp: {

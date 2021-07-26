@@ -2,7 +2,9 @@ module.exports = {
   lintOnSave: false, // 是否开启eslint
   devServer: {
     // 设置主机地址
-    host: 'localhost',
+    // host: 'm.hanyu.com',
+    host: '127.0.0.1',
+    disableHostCheck: true,
     // 设置默认端口
     port: 8080,
     // 设置代理

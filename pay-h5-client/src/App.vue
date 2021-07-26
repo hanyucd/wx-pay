@@ -7,7 +7,7 @@
 <script>
 import wx from 'weixin-js-sdk';
 import utils from './utils/index';
-import { wechatRedirect, getWechatConfig } from '@/api';
+import { wechatRedirectApi, getWechatConfig, testExpress } from '@/api';
 
 export default {
   name: 'App',
@@ -18,6 +18,8 @@ export default {
     this._checkUserAuth();
 
     // this.getWechatConfig();
+
+    // testExpress();
   },
   methods: {
     /**
@@ -26,9 +28,9 @@ export default {
     async _checkUserAuth() {
       let openId = this.$cookie.get('openId');
       if (!openId) {
-        // window.location.href = wechatRedirect(location.origin);
-        const result = await wechatRedirect();
-        console.log(result);
+        // window.location.href = wechatRedirectApi(location.origin);
+        const result = await wechatRedirectApi();
+        window.location.href = result.data;
       }
 
       // const appid = 'wx89d78fda8c962552';
