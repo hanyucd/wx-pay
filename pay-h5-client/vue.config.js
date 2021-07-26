@@ -3,7 +3,8 @@ module.exports = {
   devServer: {
     // 设置主机地址
     // host: 'm.hanyu.com',
-    host: '127.0.0.1',
+    // host: '127.0.0.1',
+    host: '192.168.5.72',
     disableHostCheck: true,
     // 设置默认端口
     port: 8080,

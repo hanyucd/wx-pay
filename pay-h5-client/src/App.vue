@@ -7,7 +7,7 @@
 <script>
 import wx from 'weixin-js-sdk';
 import utils from './utils/index';
-import { wechatRedirectApi, getWechatConfig, testExpress } from '@/api';
+import { wechatRedirect, wechatRedirectApi, getWechatConfig, testExpress } from '@/api';
 
 export default {
   name: 'App',
@@ -16,29 +16,25 @@ export default {
   },
   mounted() {
     this._checkUserAuth();
-
     // this.getWechatConfig();
-
-    // testExpress();
   },
   methods: {
     /**
      * 检查用户是否授权过
      */
-    async _checkUserAuth() {
+    _checkUserAuth() {
       let openId = this.$cookie.get('openId');
+      console.log('cookie:', openId);
+
       if (!openId) {
-        // window.location.href = wechatRedirectApi(location.origin);
-        const result = await wechatRedirectApi();
-        window.location.href = result.data;
+        let locOriginUrl = location.origin; // 当前域名路径
+        window.location.href = wechatRedirect(locOriginUrl);
       }
 
       // const appid = 'wx89d78fda8c962552';
-      // let redirectUri = encodeURIComponent('http://baidu.com'); //处理域名
-      // let redirectUri = encodeURIComponent('http://0d729f3e3886.ngrok.io'); //处理域名
       // let redirectUri = encodeURIComponent('http://127.0.0.1:8080'); //处理域名
+      // let redirectUri = encodeURIComponent('http://0d729f3e3886.ngrok.io'); //处理域名
       // console.log(redirectUri)
-      // let scope = 'snsapi_base';
       // let scope = 'snsapi_userinfo';
       // window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${ appid }&redirect_uri=${ redirectUri }&response_type=code&scope=${ scope }&state=STATE#wechat_redire`;
     },

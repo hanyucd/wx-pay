@@ -10,12 +10,21 @@ const baseUrl = 'http://127.0.0.1:8080/api';
  * encodeURIComponent('http://m.baidu.com/index')
  * http%3A%2F%2Fm.51purse.com%2F%23%2Findex
  */
- export const wechatRedirectApi = () => {
-  let url = window.encodeURIComponent(`${ baseUrl }/wechat/getOpenId`);
-  return request({
-    url: `${ baseUrl }/wechat/redirect?url=${ url }&scope=snsapi_userinfo`,
-    method: 'get'
-  });
+//  export const wechatRedirectApi = () => {
+//   let url = window.encodeURIComponent(`${ baseUrl }/wechat/getOpenId`);
+//   return request({
+//     url: `${ baseUrl }/wechat/redirect?url=${ url }&scope=snsapi_userinfo`,
+//     method: 'get'
+//   });
+// };
+
+/**
+ * 
+ * 微信重定向
+ */
+export const wechatRedirect = url => {
+  const urlEncode = window.encodeURIComponent(url);
+  return `/api/wechat/redirect?url=${ urlEncode }&scope=snsapi_userinfo`
 };
 
 /**
@@ -27,14 +36,6 @@ export const getWechatConfig = href => {
     method: 'get'
   });
 };
-
-
-export const testExpress = () => {
-  return request({
-    url: `${ baseUrl }/wechat/getOpenId`,
-    method: 'get'
-  });
-}
 
 
 
