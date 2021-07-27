@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 const cache = require('memory-cache');
-const wxConfig = require('../../config').wx;
-let request = require('request')
+const wxConfig = require('../config').wx;
+const wxh5Util = require('../utils/wxh5Util');
+// let request = require('request');
 
 /**
  * 用户授权重定向
@@ -26,26 +27,32 @@ router.get('/getOpenId', async function (req, res) {
 	const code = req.query.code;
 	console.log('code码:', code);
 
-	const token_url = `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${ wxConfig.appId }&secret=${ wxConfig.appSecret }&code=${ code }&grant_type=authorization_code`;
-	if (!code) {
-		return res.json({ code: 1001, data: null, mess: '未获取到 code' });
-	}
+	if (!code) return res.send({ code: 1001, data: null, mess: '未获取到 code' });
+	
+	console.log('响应开始');
+	// 根据 code 获取授权 access_tokenqou
+	const resResult = await wxh5Util.getAuthAccessToken(code);
+
+	console.log('响应结果：', resResult);
+	
+	console.log('响应结束');
+	
 	// 发起 http 请求
-	request.get(token_url, (error, response, body) => {
-		console.log('内容：', body)
-		if (!error && response.statusCode === 200) {
-			const data = JSON.parse(body);
-			console.log(data);
+	// request.get(token_url, (error, response, body) => {
+	// 	console.log('内容：', body)
+	// 	if (!error && response.statusCode === 200) {
+	// 		const data = JSON.parse(body);
+	// 		console.log(data);
 
-			const expire_time = 1000 * 60; // 过期时间 1 分钟
-			res.cookie('openId', data.openid, { maxAge: expire_time });
-			const redirectUrl = cache.get('redirectUrl');
+	// 		const expire_time = 1000 * 60; // 过期时间 1 分钟
+	// 		res.cookie('openId', data.openid, { maxAge: expire_time });
+	// 		const redirectUrl = cache.get('redirectUrl');
 
-			console.log('缓存：', redirectUrl);
+	// 		console.log('缓存：', redirectUrl);
 
-			res.redirect(redirectUrl); // 重定向到产品页面
-		}
-	});
+	// 		res.redirect(redirectUrl); // 重定向到产品页面
+	// 	}
+	// });
 	
 	// res.send({ code: code, message: 'getOpenId' });
 });

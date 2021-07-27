@@ -21,7 +21,8 @@ module.exports = {
        */
       '/api': {
         // 设置目标API地址
-        target: 'http://localhost:3000',
+        // target: 'http://localhost:3000',
+        target: 'http://192.168.5.72:3000',
         // 如果要代理 websockets
         ws: false,
         // 将主机标头的原点改为目标URL

@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var wx = require('./routes/pay/wx')
+const wxRoute = require('./routes/wxRoute');
 
 var app = express();
 
@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // 定义路由
 app.use('/', indexRouter);
-app.use('/api/wechat', wx);
+app.use('/api/wechat', wxRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
