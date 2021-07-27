@@ -1,22 +1,8 @@
-import request from '@/utils/http';
+import httpRequest from '@/utils/http';
 
 // const baseUrl = 'http://127.0.0.1:3000/api';
-const baseUrl = 'http://127.0.0.1:8080/api';
-// const baseUrl = 'http://m.hanyu.com:1024/api';
-
-/**
- * 微信重定向
- * @param {*} url 重定向地址
- * encodeURIComponent('http://m.baidu.com/index')
- * http%3A%2F%2Fm.51purse.com%2F%23%2Findex
- */
-//  export const wechatRedirectApi = () => {
-//   let url = window.encodeURIComponent(`${ baseUrl }/wechat/getOpenId`);
-//   return request({
-//     url: `${ baseUrl }/wechat/redirect?url=${ url }&scope=snsapi_userinfo`,
-//     method: 'get'
-//   });
-// };
+// const baseUrl = 'http://127.0.0.1:8080/api';
+const baseUrl = 'http://192.168.5.72:8080/api';
 
 /**
  * 
@@ -28,10 +14,20 @@ export const wechatRedirect = url => {
 };
 
 /**
+ * 获取用户信息
+ */
+ export const getUserInfoApi = () => {
+  return httpRequest({
+     url: `${ baseUrl }/wechat/getUserInfo`,
+     method: 'get'
+   });
+};
+
+/**
  * 获取微信配置
  */
-export const getWechatConfig = href => {
-  return request({
+export const getWechatConfigApi = href => {
+  return httpRequest({
     url: `${ baseUrl }/wechat/jssdk?url=${ href }`,
     method: 'get'
   });

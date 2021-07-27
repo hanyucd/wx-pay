@@ -4,11 +4,11 @@
  */
 exports.handleWxResponse = (error, response, body) => {
   // 微信服务器请求失败
-  if (error || response.statusCode !== 200) return this.handleFail(error, 10009);
+  if (error || response.statusCode !== 200) return this.resFail(error, 10009);
 
   const resData = JSON.parse(body); // JSON 解析响应
   // 微信请求服务发生错误
-  if (resData && resData.errcode) return this.resFail(data.errmsg, data.errcode);
+  if (resData && resData.errcode) return this.resFail(resData.errmsg, resData.errcode);
 
   // 请求成功
   return this.resSuccess(resData);

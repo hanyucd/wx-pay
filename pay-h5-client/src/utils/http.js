@@ -5,7 +5,7 @@ import axios from 'axios'
 const service = axios.create({
   timeout: 5000, // 设置超时时间
   headers: { 'Content-Type': 'application/json; charset=utf-8' }
-})
+});
 
 /**
  * 请求拦截器
@@ -27,7 +27,7 @@ service.interceptors.response.use(res => {
     return res.data
   }
   return Promise.reject(res.data);
-  }, async error => {
+}, async error => {
     if (error.request) {
       // if (error.request.status === 0) {};
     } else if (error.response) {

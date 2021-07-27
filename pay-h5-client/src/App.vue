@@ -7,7 +7,7 @@
 <script>
 import wx from 'weixin-js-sdk';
 import utils from './utils/index';
-import { wechatRedirect, wechatRedirectApi, getWechatConfig, testExpress } from '@/api';
+import { wechatRedirect, getWechatConfigApi } from '@/api';
 
 export default {
   name: 'App',
@@ -16,7 +16,6 @@ export default {
   },
   mounted() {
     this._checkUserAuth();
-    // this.getWechatConfig();
   },
   methods: {
     /**
@@ -24,25 +23,26 @@ export default {
      */
     _checkUserAuth() {
       let openId = this.$cookie.get('openId');
-      console.log('cookie:', openId);
+      console.log('App cookie:', openId);
 
       if (!openId) {
-        let locOriginUrl = location.origin; // 当前域名路径
+        const locOriginUrl = location.origin; // 当前域名路径
         window.location.href = wechatRedirect(locOriginUrl);
+      } else {
+        this._getWechatConfig();
       }
-
+      // 演示网页授权
       // const appid = 'wx89d78fda8c962552';
       // let redirectUri = encodeURIComponent('http://127.0.0.1:8080'); //处理域名
       // let redirectUri = encodeURIComponent('http://0d729f3e3886.ngrok.io'); //处理域名
-      // console.log(redirectUri)
       // let scope = 'snsapi_userinfo';
       // window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${ appid }&redirect_uri=${ redirectUri }&response_type=code&scope=${ scope }&state=STATE#wechat_redire`;
     },
     /**
      * 获取微信配置信息
      */
-    async getWechatConfig() {
-      let result = await getWechatConfig(location.href);
+    async _getWechatConfig() {
+      let result = await getWechatConfigApi(location.href);
       console.log(result);
       // wx.config({
       //   debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。

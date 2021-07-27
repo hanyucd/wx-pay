@@ -12,7 +12,7 @@ const wxh5Util = require('../utils/wxh5Util');
 router.get('/redirect', function (req, res) {
 	let redirectUrl = req.query.url; // 最终重定向的地址 -> 跳转回前端的页面
 	let scope = req.query.scope; // 网页应用授权作用域
-	cache.put('redirectUrl', redirectUrl); // 通过 cache 缓存重定向地址
+	cache.put('redirect_url', redirectUrl); // 通过 cache 缓存重定向地址
 	
 	// const redirect_uri = 'http://127.0.0.1:8080/api/wechat/getOpenId'; // 授权回调地址，用来获取 code
 	const redirect_uri = 'http://192.168.5.72:8080/api/wechat/getOpenId'; // 授权回调地址，用来获取 code
@@ -29,32 +29,51 @@ router.get('/getOpenId', async function (req, res) {
 
 	if (!code) return res.send({ code: 1001, data: null, mess: '未获取到 code' });
 	
-	console.log('响应开始');
-	// 根据 code 获取授权 access_tokenqou
+	// 根据 code 获取授权 access_token
 	const resResult = await wxh5Util.getAuthAccessToken(code);
-
 	console.log('响应结果：', resResult);
-	
-	console.log('响应结束');
-	
-	// 发起 http 请求
-	// request.get(token_url, (error, response, body) => {
-	// 	console.log('内容：', body)
-	// 	if (!error && response.statusCode === 200) {
-	// 		const data = JSON.parse(body);
-	// 		console.log(data);
+	// 请求 access_token 失败
+	if (resResult.code != 0) return res.send(resResult);
 
-	// 		const expire_time = 1000 * 60; // 过期时间 1 分钟
-	// 		res.cookie('openId', data.openid, { maxAge: expire_time });
-	// 		const redirectUrl = cache.get('redirectUrl');
+	// const expire_time = 1000 * 60 * 60 * 2; // 过期时间 2个小时
+	const expire_time = 1000 * 60 * 10; // 过期时间 10 分钟
+	const { access_token, openid } = resResult.data;
 
-	// 		console.log('缓存：', redirectUrl);
+	// 将 授权access_token, openId 存储到缓存里
+	cache.put('auth_access_token', access_token, expire_time);
+	cache.put('user_openid', openid, expire_time);
+	console.log('缓存 keys：', cache.keys())
 
-	// 		res.redirect(redirectUrl); // 重定向到产品页面
-	// 	}
-	// });
-	
-	// res.send({ code: code, message: 'getOpenId' });
+	res.cookie('openId', openid, { maxAge: expire_time }); // 设置响应 cookie
+	const redirectUrl = cache.get('redirect_url');
+	res.redirect(redirectUrl); // 重定向到产品页面	
+});
+
+/**
+ * 获取用户信息
+ */
+router.get('/getUserInfo', async (req, res) => {
+	const authAccessToken = cache.get('auth_access_token');
+	const userOpenid = cache.get('user_openid');
+	const resResult = await wxh5Util.getUserInfo(authAccessToken, userOpenid);
+
+	res.send(resResult);
+});
+
+/**
+ * 获取 jssdk 配置
+ */
+router.get('/jssdk', async (req, res) => {
+	const url = req.query.url;
+	console.log('url:', url);
+
+	// 获取普通 access_token
+	const resResult = await wxh5Util.getAccessToken();
+	if (resResult.code != 0) return res.send(resResult);
+	const { access_token } = resResult.data;
+
+	console.log('普通 access_token: ', resResult)
+	res.send({ access_token });
 });
 
 module.exports = router;
