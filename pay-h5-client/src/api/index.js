@@ -1,8 +1,8 @@
 import httpRequest from '@/utils/http';
+import commonConfig from '@/config/index';
 
-// const baseUrl = 'http://127.0.0.1:3000/api';
 // const baseUrl = 'http://127.0.0.1:8080/api';
-const baseUrl = 'http://192.168.5.72:8080/api';
+const serverBaseUrl = `${ commonConfig.baseUrl }/api`;
 
 /**
  * 
@@ -18,7 +18,7 @@ export const wechatRedirect = url => {
  */
  export const getUserInfoApi = () => {
   return httpRequest({
-     url: `${ baseUrl }/wechat/getUserInfo`,
+     url: `${ serverBaseUrl }/wechat/getUserInfo`,
      method: 'get'
    });
 };
@@ -28,7 +28,7 @@ export const wechatRedirect = url => {
  */
 export const getWechatConfigApi = href => {
   return httpRequest({
-    url: `${ baseUrl }/wechat/jssdk?url=${ href }`,
+    url: `${ serverBaseUrl }/wechat/jssdkConfig?url=${ href }`,
     method: 'get'
   });
 };

@@ -76,8 +76,30 @@ exports.createNonceStr = () => {
 };
 
 /**
- * 生成随机时间戳
+ * 生成时间戳 (秒)
  */
 exports.creatTimeStamp = () => {
   return parseInt(new Date().getTime() / 1000) + '';
+};
+
+/**
+ * 将签名对象参数排序 并转换成 参数字符串
+ */
+exports.signParamSort = paramObj => {
+  // 对对象中的 key 值进行排序
+  const paramKeys = Object.keys(paramObj).sort();
+
+  let newParamObj = {};
+  // 遍历 key 值赋值给新的对象
+  paramKeys.forEach(itmKey => {
+    newParamObj[itmKey] = paramObj[itmKey];
+  });
+  // 将对象转换为 & 分割的参数: { a:1, b:2} => a=1&b=2
+  let signParamStr = '';
+  for (let nParamKey in newParamObj) {
+    signParamStr += `&${ nParamKey }=${ newParamObj[nParamKey] }` // &a=1&b=2
+  }
+
+  // 从字符串 1 的位置截取，去掉开头的 & 符号
+  return signParamStr.substring(1);
 };
