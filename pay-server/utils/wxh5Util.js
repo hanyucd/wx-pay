@@ -94,7 +94,7 @@ exports.signParamSort = paramObj => {
   paramKeys.forEach(itmKey => {
     newParamObj[itmKey] = paramObj[itmKey];
   });
-  // 将对象转换为 & 分割的参数: { a:1, b:2} => a=1&b=2
+  // 将对象转换为 & 分割的参数: { a:1, b:2 } => a=1&b=2
   let signParamStr = '';
   for (let nParamKey in newParamObj) {
     signParamStr += `&${ nParamKey }=${ newParamObj[nParamKey] }` // &a=1&b=2
