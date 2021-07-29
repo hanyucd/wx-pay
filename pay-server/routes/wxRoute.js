@@ -11,7 +11,7 @@ const commonUtil = require('../utils');
 /**
  * 用户授权重定向
  */
-router.get('/redirect', function (req, res) {
+router.get('/redirect', (req, res) => {
 	let redirectUrl = req.query.url; // 最终重定向的地址 -> 跳转回前端的页面
 	let scope = req.query.scope; // 网页应用授权作用域
 	cache.put('redirect_url', redirectUrl); // 通过 cache 缓存重定向地址
@@ -25,7 +25,7 @@ router.get('/redirect', function (req, res) {
 /**
  * 根据 code 获取用户的 openid
  */
-router.get('/getOpenId', async function (req, res) {
+router.get('/getOpenId', async (req, res) => {
 	const code = req.query.code;
 	// console.log('code码:', code);
 	if (!code) return res.send({ code: 1001, data: null, mess: '未获取到 code' });
