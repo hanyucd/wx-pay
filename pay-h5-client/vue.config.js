@@ -4,9 +4,9 @@ module.exports = {
     // 设置主机地址
     // host: 'm.hanyu.com',
     // host: '127.0.0.1',
-    host: '192.168.5.72',
+    host: '192.168.5.96',
     disableHostCheck: true,
-    // 设置默认端口
+    // 设置默认端
     port: 8080,
     // 设置代理
     proxy: {
@@ -22,7 +22,7 @@ module.exports = {
       '/api': {
         // 设置目标API地址
         // target: 'http://localhost:3000',
-        target: 'http://192.168.5.72:3000',
+        target: 'http://192.168.5.96:3000',
         // 如果要代理 websockets
         ws: false,
         // 将主机标头的原点改为目标URL

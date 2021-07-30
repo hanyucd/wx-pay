@@ -11,3 +11,5 @@
   - 网页授权5步 注意：网页授权access_token和普通access_token的区别
 
 - 微信网页配置jssdk 分享朋友圈 & 好友
+
+- 数据库 mongodb 存储数据； node模块: mongodb 连接

@@ -1,5 +1,6 @@
  module.exports = {
-	baseUrl: 'http://192.168.5.72:8080', // 本机路由ip域名 + 端口
+	// baseUrl: 'http://192.168.5.72:8080', // 本机路由ip域名 + 端口
+	baseUrl: 'http://192.168.5.96:8080', // 本机路由ip域名 + 端口
 	mch: {
 		mch_id: '',
 		key: ''

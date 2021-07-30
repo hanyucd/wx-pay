@@ -18,7 +18,7 @@ exports.handleWxResponse = (error, response, body) => {
  * 封装成功响应
  */
 exports.resSuccess = (data = null) => {
-  return { code: 0, data, message: '成功' }
+  return { code: 0, data, message: '成功' };
 };
 
 /**

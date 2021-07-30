@@ -7,6 +7,7 @@ const wxConfig = require('../config').wx;
 const baseUrl = require('../config').baseUrl;
 const wxh5Util = require('../utils/wxh5Util');
 const commonUtil = require('../utils');
+const dbDao = require('../dao/db');
 
 /**
  * 用户授权重定向
@@ -30,18 +31,30 @@ router.get('/getOpenId', async (req, res) => {
 	// console.log('code码:', code);
 	if (!code) return res.send({ code: 1001, data: null, mess: '未获取到 code' });
 	
-	const resResult = await wxh5Util.getAuthAccessToken(code); // 根据 code 获取授权 access_token
+	const resResult = await wxh5Util.getAuthAccessToken(code); // 根据 code 获取 授权access_token
 	// console.log('授权 access_token: ', resResult);
-	if (resResult.code != 0) return res.send(resResult); // 请求 access_token 失败
-
-	const expire_time = 1000 * 60 * 60 * 2; // 过期时间 2个小时
-	// const expire_time = 1000 * 60 * 10; // 过期时间 10 分钟
+	if (resResult.code != 0) return res.send(resResult); // 请求 授权access_token 失败
 	const { access_token, openid } = resResult.data;
+
+	const expire_time = 1000 * 60 * 60 * 2; // 过期时间 2 小时
+	// const expire_time = 1000 * 60 * 10; // 过期时间 10 分钟
 
 	// 将 授权access_token, openId 存储到缓存里
 	cache.put('auth_access_token', access_token, expire_time);
 	cache.put('user_openid', openid, expire_time);
 	console.log('缓存 keys：', cache.keys());
+
+	// 根据 openId 查询用户是否有注册
+	const userResult = await dbDao.dbQuery({ openid }, 'user');
+	if (userResult.code !== 0) res.json(userResult); // 数据库查询失败
+
+	// 没有此用户
+	if (!userResult.data.length) {
+		console.log('没有此用户');
+		let userData = await wxh5Util.getUserInfo(access_token, openid); // 拉取用户信息
+		let insertData = await dbDao.dbInsert(userData.data, 'user');
+		if (insertData.code !== 0) console.log(insertData); // 插入数据失败
+	}
 
 	res.cookie('openId', openid, { maxAge: expire_time }); // 设置响应 cookie
 	const redirectUrl = cache.get('redirect_url'); // 获取缓存的重定向 url
