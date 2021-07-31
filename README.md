@@ -13,3 +13,5 @@
 - 微信网页配置jssdk 分享朋友圈 & 好友
 
 - 数据库 mongodb 存储数据； node模块: mongodb 连接
+
+- pay-minip 微信小程序 & 云开发
