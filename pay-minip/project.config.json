@@ -2,7 +2,7 @@
   "miniprogramRoot": "miniprogram/",
   "cloudfunctionRoot": "cloudfunctions/",
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": true,
     "enhance": true,
     "postcss": true,
@@ -54,8 +54,7 @@
       "list": []
     },
     "miniprogram": {
-      "list": [
-      ]
+      "list": []
     }
   }
 }

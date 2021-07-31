@@ -4,9 +4,8 @@
     "pages/pay/pay"
   ],
   "window": {
-    "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarBackgroundColor": "#FFF",
     "navigationBarTitleText": "pay-minip",
     "navigationBarTextStyle": "black"
   },

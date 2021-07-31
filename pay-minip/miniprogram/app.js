@@ -1,16 +1,24 @@
-const api = require('./api');
-const request = require('./api/request');
-const envConfig = require('./config').envConfig;
+const api = require('./api/index');
+const fetchReq = require('./api/request');
+const routeNavTo = require('./utils/routeUtil');
+const config = require('./config/index');
 
-const env = 'dev';
+const env = 'dev'; // 环境变量 dev(开发)、prod(生产)
 
+// 挂载到全局 可让非 pages 页面使用
 App.version = '1.0.0'; // 开发版本 后期做埋点统计，后台打印日志看目前处于哪个版本
-App.config = envConfig[env];  // 根据环境变量获取对应的配置信息
+App.config = config[env];  // 根据环境变量 获取对应的配置信息
 App.config.env = env;
 
 App({
-  $api: api, // 全局挂载 api，供全局使用
-
+  $api: api, // 全局挂载 api，供 pages 使用
+  $fetchReq: fetchReq, // 全局挂载 http 请求，供 pages 使用
+  $routeNavTo: routeNavTo, // 全局挂载 路由导航，供 pages 使用
+  
+  globalData: {
+    userInfo: null, // 用户信息
+  },
+  
   onLaunch: () => {
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
@@ -24,7 +32,7 @@ App({
         traceUser: true,
       })
     }
+  },
+});
 
-    this.globalData = {}
-  }
-})
+// console.log(App.config)

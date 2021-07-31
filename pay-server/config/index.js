@@ -12,7 +12,7 @@
 		// appSecret: '9e55db6121fcec3abf355f69d57252fa'
 	},
 	mp: {
-		appId: 'wxc447e673378bdd41',
-		appSecret: ''
+		appId: 'wx81d0bb9da8c3046d', // 微信小程序 appid
+		appSecret: 'bd29ad8ce991d91fcde9ab920c4b36ae'
 	}
 }

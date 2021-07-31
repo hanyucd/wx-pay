@@ -3,6 +3,7 @@
 ## 笔记
 
 - 开发前配置
+  - 服务端配置 (本机路由ip + 端口) 可真机访问
   - pay-h5-client & pay-server config 全局配置 baseUrl (本机路由ip)
   - 测试号配置 网页授权回调域名完成网页授权登录 (本机路由ip + 端口)
   - 测试号配置 JS接口安全域名 通过关注该测试号，开发者即可在该域名下调用微信开放的JS接口 (本机路由ip)
@@ -15,3 +16,7 @@
 - 数据库 mongodb 存储数据； node模块: mongodb 连接
 
 - pay-minip 微信小程序 & 云开发
+  - 封装 router 
+  - 封装 storage 
+  - 封装 request
+  - App 全局挂载 

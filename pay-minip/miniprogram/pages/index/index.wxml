@@ -1,4 +1,13 @@
-<!--index.wxml-->
-<view class="container">
-  <view class="title">快速了解云开发</view>
+<view class="index-main">
+  <image class="img-bg" mode="aspectFill" src="../../images/xiaoyu_bg.jpg" />
+
+  <view class="btn-wrap">
+    <view class="btn" wx:if="{{ !userId }}" style="background: #07c160; color: #fff;" bindtap="getUserProfile">微信登录</view>
+    <block wx:else>
+      <label for="shareBtnId"><view class="btn" style="background: #fff; color: #D94C4C;">分享</view></label>
+      <view class="btn" bindtap="navTo">支付</view>
+    </block>
+  </view>
 </view>
+
+<button open-type="share" id="shareBtnId" style="display: none;"></button>

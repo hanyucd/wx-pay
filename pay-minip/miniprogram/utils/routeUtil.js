@@ -7,7 +7,6 @@ const routePage = {
   'payPage': "/pages/pay/pay",
 };
 
-
 /**
  * 对象转换为 & 符连接的字符串
  * @param {Object} data
@@ -55,22 +54,22 @@ const _navTo = (openType, url, backNum) => {
  * 页面跳转
  * push('index')
    push({ path: '/index', query: { userId:123 } })
- * @param {*} path 
+ * @param {*} pageName 
  * @param {*} option 
  * query  传递参数
  * openType  跳转类型
  * duration 持续时间
  * backNum openType='back'时使用，返回上级页面（多级）
  */
-exports.$push = (path, option = {}) => {
+module.exports = (pageName, option = {}) => {
   // 通过 push('index') 这种方式跳转
-  if (typeof path == 'string') {
-    option.path = path;
+  if (typeof pageName == 'string') {
+    option.pageName = pageName;
   } else {
-    option = path;
+    option = pageName;
   }
 
-  const url = routePage[option.path];
+  const url = routePage[option.pageName];
   // 传递参数 跳转类型 持续时间
   const { query = {}, openType, duration, backNum } = option;
   const paramStr = _parseObjParam(query);

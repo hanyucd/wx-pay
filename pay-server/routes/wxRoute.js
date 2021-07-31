@@ -45,15 +45,17 @@ router.get('/getOpenId', async (req, res) => {
 	console.log('缓存 keys：', cache.keys());
 
 	// 根据 openId 查询用户是否有注册
-	const userResult = await dbDao.dbQuery({ openid }, 'user');
+	const userResult = await dbDao.dbQuery({ openid }, 'user_h5');
+	// console.log('查询用户:', userResult);
 	if (userResult.code !== 0) res.json(userResult); // 数据库查询失败
 
 	// 没有此用户
 	if (!userResult.data.length) {
 		console.log('没有此用户');
 		let userData = await wxh5Util.getUserInfo(access_token, openid); // 拉取用户信息
-		let insertData = await dbDao.dbInsert(userData.data, 'user');
+		let insertData = await dbDao.dbInsert(userData.data, 'user_h5');
 		if (insertData.code !== 0) console.log(insertData); // 插入数据失败
+		// console.log('插入用户:', insertData);
 	}
 
 	res.cookie('openId', openid, { maxAge: expire_time }); // 设置响应 cookie

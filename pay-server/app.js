@@ -4,8 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
+const indexRoute = require('./routes/index');
 const wxRoute = require('./routes/wxRoute');
+const mpRoute = require('./routes/mpRoute');
 
 var app = express();
 
@@ -36,8 +37,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // 定义路由
-app.use('/', indexRouter);
-app.use('/api/wechat', wxRoute);
+app.use('/', indexRoute);
+app.use('/api/wechat', wxRoute); // 微信 h5 相关路由
+app.use('/api/mp', mpRoute); // 微信 minip 相关路由
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

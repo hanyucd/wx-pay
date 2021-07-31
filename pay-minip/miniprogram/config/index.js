@@ -1,11 +1,12 @@
 
-exports.envConfig = {
-  // 开发环境
+module.exports = {
+  // 开发环境配置
   dev: {
-    baseurl: 'http://localhost:3000'
+    // serverBaseurl: 'http://localhost:3000'
+    serverBaseurl: 'http://192.168.5.96:3000' // 本机路由ip域名 + 端口
   },
-  // 生产环境
+  // 生产环境配置
   prod: {
-    baseurl: 'http://127.0.0.1:3000'
+    serverBaseurl: 'http://127.0.0.1:3000'
   }
 }
