@@ -1,1 +1,0 @@
-"/Applications/wechatwebdevtools.app/Contents/MacOS/cli" cloud functions deploy --e cloud-develop-143u6 --n quickstartFunctions --r --project "/Users/hanyu/Desktop/wx-pay/pay-minip" --report
