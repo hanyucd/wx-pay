@@ -38,7 +38,7 @@
   },
   "appid": "wx81d0bb9da8c3046d",
   "projectname": "pay-minip",
-  "libVersion": "2.14.1",
+  "libVersion": "2.16.1",
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate",
   "condition": {
     "search": {

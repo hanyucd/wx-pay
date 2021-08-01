@@ -48,6 +48,26 @@ Page({
         this.setData({ userId: data.userId });
       }
      });
+
+    // 云函数: 注册用户
+    //  wx.getUserProfile({
+    //   desc: '需要授权完成注册',
+    //   lang: 'zh_CN',
+    //   success: async res => {
+    //     const { userInfo } = res;
+    //     wx.showLoading({ title: '登录中...', mask: true });
+
+    //     const result = (await wx.cloud.callFunction({
+    //       name: 'pay-login',
+    //       data: { userInfo }
+    //     })).result;
+    //     const { userId } = result;
+    //     // userId 存储 localstorage
+    //     storageUtil.setItemStorage('userId', userId);
+    //     this.setData({ userId });
+    //     wx.hideLoading();
+    //   }
+    //  });
   },
   /**
    * 页面跳转
