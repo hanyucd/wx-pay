@@ -36,7 +36,7 @@
     "minifyWXSS": true,
     "showES6CompileOption": false
   },
-  "appid": "wx81d0bb9da8c3046d",
+  "appid": "wxdd8a10083014cf6a",
   "projectname": "pay-minip",
   "libVersion": "2.16.1",
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate",

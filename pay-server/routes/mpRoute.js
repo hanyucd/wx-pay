@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 const request = require('request');
-const commonUtil = require('../utils/index');
 const mpConfig = require('../config').mp;
+const baseUrl = require('../config').baseUrl;
+const commonUtil = require('../utils');
+const mpPayUtil = require('../utils/mpPayUtil');
 const dbDao = require('../dao/db');
 
 /**
@@ -48,5 +50,31 @@ router.get('/getSession', async (req, res) => {
   // 添加成功
   res.send(commonUtil.resSuccess({ userId: insertData.data.insertedId }))
  });
+
+ /**
+  * 微信支付下单 获取小程序端支付所需参数
+  */
+router.get('/v2Pay', async (req, res) => {
+  const openid = req.query.openId; // 用户的 openid
+  const attach = '支付附加数据'; // 附加数据
+  const body = '小程序支付';  // 主体内容
+  const total_fee = req.query.money; // 支付金额（分）
+  const notify_url = `${ baseUrl }/api/mp/payCallback`;
+  const spbill_create_ip = '192.168.5.96'; // 终端ip (可填本机 ip)
+  // 小程序端支付所需参数
+  const payParam = await mpPayUtil.v2createOrder({ openid, attach, body, total_fee, notify_url, spbill_create_ip });
+  console.log(payParam);
+});
+
+/**
+ * 支付回调通知 (需保证小程序上线后才能回调)
+ */
+router.get('/payCallback', async (req, res) => {
+  console.log('支付通知回调');
+
+  // console.log(req.headers['x-forwarded-for']);
+  console.log(req.connection.remoteAddress);
+  res.send({ id: req.connection.remoteAddress });
+});
 
 module.exports = router;
