@@ -16,7 +16,6 @@
 	// 商户号信息
 	mch: {
 		mchId: '1601882117', // 商户 id
-		key: 'Dm13hjF5VoXV3L328ufsriGJX5CANOG8',
 		mchKey: 'Dm13hjF5VoXV3L328ufsriGJX5CANOG8'
 	},
 }

@@ -10,6 +10,7 @@
 
 - 使用测试号完成微信网页授权登录
   - 网页授权5步 注意：网页授权access_token和普通access_token的区别
+  - https://mp.weixin.qq.com/s/BQPn_r5pcwZO3tzqnoTiKg
 
 - 微信网页配置jssdk 分享朋友圈 & 好友
 
@@ -35,6 +36,11 @@
 4. 小程序支付:  
    商户在小程序内，通过微信支付实现付款功能的支付方式。
 
+   支付签名(sign): 是指将前面所有 参数 加密后的字符
+   参数: 可以按照自己的需要进行选择性传参，但是接口文档里要求必填，那就必须要传，否则接口会调用失败。
+   
+   签名算法是比较麻烦的一步，整个步骤就是：把你所有要传的非空参数，按字典顺序拼接起来得到stringA，然后加上key
+
    https://zhuanlan.zhihu.com/p/189408579
 
    https://juejin.cn/post/6962793524643233806
@@ -42,3 +48,7 @@
    https://www.jianshu.com/p/cc160949ba6b
 
    https://blog.csdn.net/m0_37857819/article/details/106442901
+
+   https://zhuanlan.zhihu.com/p/147755175
+
+   https://blog.csdn.net/yemuxia_sinian/article/details/86672495
