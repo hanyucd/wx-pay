@@ -67,6 +67,8 @@ const _createSign = signParamObj => {
   const stringSignTemp = stringA + `&key=${ mchConfig.mchKey }`; // 注：key 为商户平台设置的密钥 key
   // 签名
   const _sign = crypto.createHash('md5').update(stringSignTemp).digest('hex').toUpperCase();
+  console.log('签名:', _sign);
+  
   return _sign;
 };
 
@@ -119,6 +121,8 @@ exports.v2getPayParam = async param => {
   try {
     // 创建微信预支付 id
     const { prepay_id } = await _v2createPrePayOrder(xmlFormData);
+    // FIXME:
+    console.log({ openid, attach, body, total_fee, notify_url, spbill_create_ip, prepay_id });
     if (!prepay_id) return '';
     
     const payParamObj = {
@@ -127,10 +131,9 @@ exports.v2getPayParam = async param => {
       signType: 'MD5',
       package: `prepay_id=${ prepay_id }`
     };
+    console.log('支付参数:', payParamObj);
     // 支付签名
     const paySign = _createSign(payParamObj);
-
-    console.log({ openid, attach, body, total_fee, notify_url, spbill_create_ip, paySign, package })
     
     return {
       timeStamp: payParamObj.timeStamp,

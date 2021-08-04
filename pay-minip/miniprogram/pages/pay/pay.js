@@ -34,9 +34,9 @@ Page({
       const { data: payParam } = await app.$fetchReq(app.$api.v2Pay, { userOpenid, money });
       // 调起支付 api
       wx.requestPayment({
-        timeStamp: payParam.package,
+        timeStamp: payParam.timeStamp,
         nonceStr: payParam.nonceStr,
-        package: payParam.nonceStr,
+        package: payParam.package,
         paySign: payParam.paySign,
         signType: payParam.signType,
         success: res => {
