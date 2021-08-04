@@ -22,13 +22,14 @@ module.exports = (url, data = {}, option = {} ) => {
     loading && wx.showLoading({ title: '加载中...', mask: true });
     
     const serverBaseurl = App.config.serverBaseurl; // 服务端基础地址
+    console.log(serverBaseurl + url)
     wx.request({
       url: serverBaseurl + url,
       data,
       method,
       header: {
         'content-type': 'application/json',
-        'clientInfo': JSON.stringify(clientInfo)
+        'clientInfo': JSON.stringify(clientInfo) // 携带客户端信息
       },
       success: res => {
         // console.log(res);

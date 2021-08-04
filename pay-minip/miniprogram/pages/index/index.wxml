@@ -1,4 +1,4 @@
-<view class="index-main">
+<view class="main">
   <image class="img-bg" mode="aspectFill" src="../../images/xiaoyu_bg.jpg" />
 
   <view class="btn-wrap">

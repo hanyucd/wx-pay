@@ -1,66 +1,53 @@
-// pages/pay/pay.js
+const storageUtil = require('./../../utils/storageUtil');
+const app = getApp();
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    moneyIdx: -1,
+    moneyList: [
+      { money: 0.01, text: '1分' },
+      { money: 0.2, text: '2角' },
+      { money: 1, text: '1元' },
+      { money: 10, text: '10元' },
+    ]
   },
-
+  onLoad(query) {},
   /**
-   * 生命周期函数--监听页面加载
+   * 选择净额
    */
-  onLoad: function (options) {
-
+  changeMoney(event) {
+    const { moneyIdx } = event.currentTarget.dataset;
+    this.setData({ moneyIdx });
   },
-
   /**
-   * 生命周期函数--监听页面初次渲染完成
+   * 点击支付
    */
-  onReady: function () {
+  async clickPay() {
+    const { moneyIdx, moneyList } = this.data;
+    const userOpenid = storageUtil.getItemStorage('openId');
+    if (!userOpenid) return wx.showToast({ title: '无用户openid', icon: 'none' });
+    if (moneyIdx < 0) return wx.showToast({ title: '请选择金额', icon: 'none' });
+    const money = moneyList[moneyIdx].money;
 
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+    try {
+      // 发起 http 请求获取支付参数
+      const { data: payParam } = await app.$fetchReq(app.$api.v2Pay, { userOpenid, money });
+      // 调起支付 api
+      wx.requestPayment({
+        timeStamp: payParam.package,
+        nonceStr: payParam.nonceStr,
+        package: payParam.nonceStr,
+        paySign: payParam.paySign,
+        signType: payParam.signType,
+        success: res => {
+          console.log(res);
+        },
+        fail: error => {
+          console.log(error);
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 })

@@ -1,2 +1,13 @@
-<!--pages/pay/pay.wxml-->
-<text>pages/pay/pay.wxml</text>
+<view class="main">
+  <image class="img-bg" mode="aspectFill" src="../../images/aoxue_bg.jpg" />
+
+  <view class="pay-wrap">
+    <view class="pay-title">测试支付</view>
+
+    <view class="pay-money-wrap">
+      <view class="pay-money-item {{ (moneyIdx === index) ? 'pay-money-item-active' : '' }}" wx:for="{{ moneyList }}" wx:key="index" data-money-idx="{{ index }}" bindtap="changeMoney">{{ item.text }}</view>
+    </view>
+
+    <view class="pay-btn" bindtap="clickPay">支付</view>
+  </view>
+</view>

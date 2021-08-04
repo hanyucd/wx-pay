@@ -1,5 +1,5 @@
 module.exports = {
   getSession: '/api/mp/getSession',
   login: '/api/mp/login',
-  payWallet: '/api/mp/pay/payWallet'
+  v2Pay: '/api/mp/v2Pay'
 }
