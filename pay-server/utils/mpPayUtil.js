@@ -83,7 +83,7 @@ exports.v2getPayParam = async param => {
   const { openid, attach, body, total_fee, notify_url, spbill_create_ip } = param;
   const appid = mpConfig.appId; // 微信小程序 appid
   const mch_id = mchConfig.mchId; // 商户 id
-  const timeStamp = _creatTimeStamp(); // 时间戳
+  const timeStamp = _creatTimeStamp(); // 时间戳字符串 (秒)
   const nonce_str = _createNonceStr(); // 随机字符串
   const out_trade_no = _createTradeNo(); // 订单号
   const sign_type = 'MD5'; // 签名类型
