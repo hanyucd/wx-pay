@@ -60,7 +60,8 @@ router.get('/v2Pay', async (req, res) => {
   const body = '小程序支付';  // 主体内容
   const total_fee = Number(req.query.money) * 100; // 支付金额 单位为分
   const notify_url = `${ baseUrl }/api/mp/payCallback`;
-  const spbill_create_ip = '192.168.5.96'; // 终端ip (可填本机 ip)
+  // const spbill_create_ip = '192.168.5.96'; // 终端ip (可填本机 ip)
+  const spbill_create_ip = '192.168.3.6'; // 终端ip (可填本地路由 ip)
   const param = { openid, attach, body, total_fee, notify_url, spbill_create_ip };
   const payParam = await mpPayUtil.v2getPayParam(param);
   if (!payParam) return res.send(commonUtil.resFail('创建支付订单出错'));
@@ -75,7 +76,7 @@ router.get('/payCallback', async (req, res) => {
   console.log('支付通知回调');
 
   console.log(req);
-  res.send({ id: req.connection.remoteAddress });
+  res.send({ code: 0, data: '', message: '支付通知回调' });
 });
 
 module.exports = router;

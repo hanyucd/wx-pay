@@ -41,9 +41,11 @@ Page({
         signType: payParam.signType,
         success: res => {
           console.log(res);
+          if (res.errMsg == 'requestPayment:ok') wx.showToast({ title: '支付成功', icon: 'success' });
         },
         fail: error => {
           console.log(error);
+          if (error.errMsg == 'requestPayment:fail cancel') wx.showToast({ title: '支付取消', icon: 'none' });
         }
       });
     } catch (error) {

@@ -67,8 +67,7 @@ const _createSign = signParamObj => {
   const stringSignTemp = stringA + `&key=${ mchConfig.mchKey }`; // 注：key 为商户平台设置的密钥 key
   // 签名
   const _sign = crypto.createHash('md5').update(stringSignTemp).digest('hex').toUpperCase();
-  console.log('签名:', _sign);
-  
+
   return _sign;
 };
 
@@ -89,7 +88,7 @@ const _v2createPrePayOrder = async xmlFormData => {
       xml2js.parseString(body, (err, result) => {
         if (err) return reject({ errmsg: 'xml解析出错' }); // 解析出错
         const resData = result.xml;
-        console.log('xml解析:', resData);
+        // console.log('xml解析结果:', resData);
         // 微信返回结果中 return_code 和 result_code 都为 SUCCESS 的时候才有返回的预支付id (prepay_id)
         if (resData.return_code[0] === 'SUCCESS' && resData.result_code[0] === 'SUCCESS' && resData.prepay_id) {
           resolve({ prepay_id: resData.prepay_id[0] });
@@ -121,17 +120,15 @@ exports.v2getPayParam = async param => {
   try {
     // 创建微信预支付 id
     const { prepay_id } = await _v2createPrePayOrder(xmlFormData);
-    // FIXME:
-    console.log({ openid, attach, body, total_fee, notify_url, spbill_create_ip, prepay_id });
     if (!prepay_id) return '';
     
     const payParamObj = {
+      appId: appid, // 必须添加上 appid, 否则报错：支付验证签名失败
       timeStamp,
       nonceStr: nonce_str,
       signType: 'MD5',
       package: `prepay_id=${ prepay_id }`
     };
-    console.log('支付参数:', payParamObj);
     // 支付签名
     const paySign = _createSign(payParamObj);
     
