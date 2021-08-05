@@ -1,7 +1,7 @@
  module.exports = {
 	// baseUrl: 'http://192.168.5.72:8080', // 本机路由ip域名 + 端口
-	// baseUrl: 'http://192.168.5.96:8080', // 本机路由ip域名 + 端口
-	baseUrl: 'https://69c338953537.ngrok.io', // 本机路由ip域名 + 端口
+	baseUrl: 'http://192.168.5.96:8080', // 本机路由ip域名 + 端口
+	// baseUrl: 'https://69c338953537.ngrok.io', // 本机路由ip域名 + 端口
 	// 微信公众号
 	wx: {
 		appId: 'wx89d78fda8c962552', // 测试号 appid (公众号)

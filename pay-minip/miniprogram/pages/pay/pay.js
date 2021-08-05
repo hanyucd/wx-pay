@@ -29,6 +29,13 @@ Page({
     if (moneyIdx < 0) return wx.showToast({ title: '请选择金额', icon: 'none' });
     const money = moneyList[moneyIdx].money;
 
+    this._v2Pay({ userOpenid, money }); // 微信支付 v2
+  },
+  /**
+   * 微信支付 v2
+   */
+  async _v2Pay(param) {
+    const { userOpenid, money } = param;
     try {
       // 发起 http 请求获取支付参数
       const { data: payParam } = await app.$fetchReq(app.$api.v2Pay, { userOpenid, money });
@@ -51,5 +58,5 @@ Page({
     } catch (error) {
       console.log(error);
     }
-  }
+  },
 })
