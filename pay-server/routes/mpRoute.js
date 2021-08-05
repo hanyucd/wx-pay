@@ -59,9 +59,8 @@ router.get('/v2Pay', async (req, res) => {
   const attach = '支付附加数据'; // 附加数据
   const body = '小程序支付';  // 主体内容
   const total_fee = Number(req.query.money) * 100; // 支付金额 单位为分
-  const notify_url = `${ baseUrl }/api/mp/payCallback`;
-  // const spbill_create_ip = '192.168.5.96'; // 终端ip (可填本机 ip)
-  const spbill_create_ip = '192.168.3.6'; // 终端ip (可填本地路由 ip)
+  const notify_url = `${ baseUrl }/api/mp/payCallback`; // 异步接收微信支付结果通知的回调地址，通知 url必须为外网可访问的url，不能携带参数。公网域名必须为 https
+  const spbill_create_ip = '192.168.5.96'; // 终端ip (可填本地路由 ip)
   const param = { openid, attach, body, total_fee, notify_url, spbill_create_ip };
   const payParam = await mpPayUtil.v2getPayParam(param);
   if (!payParam) return res.send(commonUtil.resFail('创建支付订单出错'));
@@ -70,13 +69,22 @@ router.get('/v2Pay', async (req, res) => {
 });
 
 /**
- * 支付回调通知 (需保证小程序上线后才能回调)
+ * 支付结果通知 (需保证小程序上线后才能回调) 需要为 POST
+ * 返回结果格式为 XML
+ * https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=9_7&index=8
  */
-router.get('/payCallback', async (req, res) => {
-  console.log('支付通知回调');
-
-  console.log(req);
-  res.send({ code: 0, data: '', message: '支付通知回调' });
+router.post('/payCallback', async (req, res) => {
+  console.log(req.body.xml);
+  // json 转 xml
+  const _json2Xml = json => {
+    let _xml = '';
+    Object.keys(json).map((key) => {
+        _xml += `<${ key }>${ json[key ]}</${ key }>`
+    });
+    return `<xml>${ _xml }</xml>`;
+  }
+  const sendData = { return_code: 'SUCCESS', return_msg: 'OK' };
+  res.end(_json2Xml(sendData));
 });
 
 module.exports = router;

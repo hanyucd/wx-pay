@@ -115,7 +115,7 @@ exports.v2getPayParam = async param => {
   // 签名
   const sign = _createSign({ appid, mch_id, nonce_str, out_trade_no, sign_type, trade_type, openid, attach, body, total_fee, notify_url, spbill_create_ip });
   // xml格式数据
-  const xmlFormData = _createXMLData({ appid, mch_id, nonce_str, out_trade_no, sign_type, trade_type, openid, attach, body, total_fee, notify_url, spbill_create_ip, sign })
+  const xmlFormData = _createXMLData({ appid, mch_id, nonce_str, out_trade_no, sign_type, trade_type, openid, attach, body, total_fee, notify_url, spbill_create_ip, sign });
 
   try {
     // 创建微信预支付 id
@@ -131,7 +131,7 @@ exports.v2getPayParam = async param => {
     };
     // 支付签名
     const paySign = _createSign(payParamObj);
-    
+
     return {
       timeStamp: payParamObj.timeStamp,
       nonceStr: payParamObj.nonceStr,

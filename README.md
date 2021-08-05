@@ -54,3 +54,13 @@
    https://blog.csdn.net/yemuxia_sinian/article/details/86672495
 
    https://cloud.tencent.com/developer/article/1653813
+
+5. 微信支付结果通知 notify_url(需要为 https, 同时是 post)  可用 ngrok 做内网穿透
+
+   微信支付平台会发送一个回调请求，通知支付订单的处理结果。该请求传入的参数是xml格式
+
+   将传回来的参数除了sign以外的参数签名 结果与所传回来的 sign 比较，一样则校验成功
+
+   https://blog.csdn.net/BigChicken3/article/details/93310440
+
+   https://blog.csdn.net/weixin_41888375/article/details/89322560

@@ -7,11 +7,13 @@
     "dev": "./node_modules/.bin/nodemon bin/www"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "cookie-parser": "~1.4.4",
     "create-hash": "^1.2.0",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "express-xml-bodyparser": "^0.3.0",
     "http-errors": "~1.6.3",
     "memory-cache": "^0.2.0",
     "mongodb": "^4.0.1",
