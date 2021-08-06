@@ -29,7 +29,8 @@ Page({
     if (moneyIdx < 0) return wx.showToast({ title: '请选择金额', icon: 'none' });
     const money = moneyList[moneyIdx].money;
 
-    this._v2Pay({ userOpenid, money }); // 微信支付 v2
+    // this._v2Pay({ userOpenid, money }); // 微信支付 v2
+    this._cloudPay({ money }); // 云支付
   },
   /**
    * 微信支付 v2
@@ -59,4 +60,32 @@ Page({
       console.log(error);
     }
   },
+  /**
+   * 云支付
+   */
+  async _cloudPay({ money }) {
+    try {
+      wx.showLoading({ title: '加载中...', mask: true });
+      const result = (await wx.cloud.callFunction({
+        name: 'pay-req',
+        data: { money }
+      })).result;
+      const { payment } = result;
+      // 调起支付 api
+      wx.requestPayment({
+        ...payment, // 根据获取到的参数调用支付 API 发起支付
+        success: res => {
+          console.log(res);
+          if (res.errMsg == 'requestPayment:ok') wx.showToast({ title: '支付成功', icon: 'success' });
+        },
+        fail: error => {
+          console.log(error);
+          if (error.errMsg == 'requestPayment:fail cancel') wx.showToast({ title: '支付取消', icon: 'none' });
+        }
+      });
+    } catch (error) {
+      wx.hideLoading();
+      console.log(error);
+    }
+  }
 })

@@ -64,3 +64,8 @@
    https://blog.csdn.net/BigChicken3/article/details/93310440
 
    https://blog.csdn.net/weixin_41888375/article/details/89322560
+
+
+ 5. 微信云支付:  
+
+    https://juejin.cn/post/6855651062733340685

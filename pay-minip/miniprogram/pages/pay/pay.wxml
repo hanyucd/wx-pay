@@ -1,5 +1,6 @@
 <view class="main">
-  <image class="img-bg" mode="aspectFill" src="../../images/aoxue_bg.jpg" />
+  <!-- <image class="img-bg" mode="aspectFill" src="../../images/xiaoyu_bg2.jpg" /> -->
+  <image class="img-bg" mode="aspectFill" src="../../images/shaxin_bg.jpg" />
 
   <view class="pay-wrap">
     <view class="pay-title">测试支付</view>

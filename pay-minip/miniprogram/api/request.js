@@ -28,7 +28,7 @@ module.exports = (url, data = {}, option = {} ) => {
       method,
       header: {
         'content-type': 'application/json',
-        'clientInfo': JSON.stringify(clientInfo) // 携带客户端信息
+        'clientInfo': JSON.stringify(clientInfo) // 携带客户端信息 方便服务端排除错误
       },
       success: res => {
         // console.log(res);
