@@ -71,6 +71,8 @@ router.get('/v2Pay', async (req, res) => {
 /**
  * 支付结果通知 (需保证小程序上线后才能回调) 需要为 POST
  * 返回结果格式为 XML
+ * 
+ * 此接口中编写相关业务逻辑、如支付成功后写入数据库等操作
  * https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=9_7&index=8
  */
 router.post('/payCallback', async (req, res) => {

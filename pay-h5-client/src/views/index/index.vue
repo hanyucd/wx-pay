@@ -9,14 +9,13 @@
     
     <!-- 按钮组 -->
     <div class="btn-group">
-      <div class="btn">分享</div>
-      <div class="btn btn-primary">充值</div>
-      <div class="btn">活动详情</div>
+      <div class="btn btn-primary" @click="navToPay">支付</div>
     </div>
   </div>
 </template>
 
 <script>
+import wx from 'weixin-js-sdk';
 import { getUserInfoApi } from '@/api';
 
 export default {
@@ -39,6 +38,9 @@ export default {
       const { data } = await getUserInfoApi();
       this.userInfo = data;
       // console.log(resResult)
+    },
+    navToPay() {
+      this.$router.push('/pay');
     }
   }
 }
@@ -78,26 +80,23 @@ export default {
   color: #000;
 }
 
-
 .btn-group {
   position: fixed;
   bottom: 1rem;
   left: 50%;
   transform: translateX(-50%);
 }
-.btn {
+
+.btn-primary {
   width: 5.4rem;
   height: 1rem;
   line-height: 1rem;
   text-align: center;
+  color: #fff;
   background:#D94C4C;
   font-size: .34rem;
   margin-bottom: .3rem;
   color: #fff;
   border-radius: .5rem;
-}
-.btn-primary {
-  background: #fff;
-  color: #D94C4C;
 }
 </style>

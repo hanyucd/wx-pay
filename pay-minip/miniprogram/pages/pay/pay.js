@@ -29,8 +29,8 @@ Page({
     if (moneyIdx < 0) return wx.showToast({ title: '请选择金额', icon: 'none' });
     const money = moneyList[moneyIdx].money;
 
-    // this._v2Pay({ userOpenid, money }); // 微信支付 v2
-    this._cloudPay({ money }); // 云支付
+    this._v2Pay({ userOpenid, money }); // 微信支付 v2
+    // this._cloudPay({ money }); // 云支付
   },
   /**
    * 微信支付 v2

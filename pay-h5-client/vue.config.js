@@ -2,7 +2,6 @@ module.exports = {
   lintOnSave: false, // 是否开启eslint
   devServer: {
     // 设置主机地址
-    // host: 'm.hanyu.com',
     // host: '127.0.0.1',
     host: '192.168.5.96',
     disableHostCheck: true,
