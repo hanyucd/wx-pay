@@ -20,7 +20,7 @@ router.get('/redirect', (req, res) => {
 	// const redirect_uri = 'http://127.0.0.1:8080/api/wechat/getOpenId'; // 授权回调地址，用来获取 code
 	const redirect_uri = `${ baseUrl }/api/wechat/getOpenId`;
 	let authorizeUrl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${ wxConfig.appId }&redirect_uri=${ redirect_uri }&response_type=code&scope=${ scope }&state=STATE#wechat_redirect`;
-	res.redirect(authorizeUrl); // 重定向到微信授权页面
+	// res.redirect(authorizeUrl); // 重定向到微信授权页面
 });
 
 /**
