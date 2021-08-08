@@ -44,11 +44,11 @@ exports.getAccessToken = () => {
 
   return new Promise((resolve, reject) => {
     // 发起 http 请求
-		request.get(accessTokenUrl, (error, response, body) => {
-			const resResult = commonUtil.handleWxResponse(error, response, body);
-			resolve(resResult);
-		});
-	});
+    request.get(accessTokenUrl, (error, response, body) => {
+      const resResult = commonUtil.handleWxResponse(error, response, body);
+      resolve(resResult);
+    });
+  });
 };
 
 /**
@@ -56,9 +56,9 @@ exports.getAccessToken = () => {
  * @param accessToken 普通 access_token
  */
  exports.getJsApiTicket = accessToken => {
-	const jsapiTicketUrl = `https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=${ accessToken }&type=jsapi`;
+  const jsapiTicketUrl = `https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=${ accessToken }&type=jsapi`;
 
-	return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     // 发起 http 请求
     request.get(jsapiTicketUrl, (error, response, body) => {
       const resResult = commonUtil.handleWxResponse(error, response, body);
