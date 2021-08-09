@@ -1,18 +1,20 @@
 const request = require('request');
 const { mp: mpConfig, mch: mchConfig } = require('../config');
 const crypto = require('crypto');
-const xml2js = require('xml2js'); // 引入 xml 解析模块
+const xml2js = require('xml2js'); // xml 解析模块
 
 /**
  * 生成时间戳 (秒)
+ * @return {String} '1628515132'
  */
 const _creatTimeStamp = () => {
   return parseInt(+new Date() / 1000) + '';
 };
 
 /**
- * 生成随机字符串 微信支付 v2 需要
- * @param {*} strLen 字符串长度
+ * 生成随机字符串
+ * @param {Number} strLen 字符串长度
+ * @return {String} 'hKcmnxAEVFsJVLwQgx1s'
  */ 
 const _createNonceStr = (strLen = 20) => {
   const str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -26,6 +28,7 @@ const _createNonceStr = (strLen = 20) => {
 
 /**
  * 创建订单号（保证唯一性）
+ * @return {String} '1628515375405237420'
  */
 const _createTradeNo = () => {
   let tradeNo = '';
@@ -43,6 +46,8 @@ const _createTradeNo = () => {
 
 /**
  * 将 obj 转为微信提交 xml 格式，包含签名
+ * @param {Object} paramObj 转换对象
+ * @return {String<XML>}
  */
 const _createXMLData = paramObj => {
   let formData = '';
@@ -57,8 +62,8 @@ const _createXMLData = paramObj => {
 };
 
 /**
- * 生成签名 微信支付 v2 需要
- * 签名算法用的是 md5
+ * 生成签名 签名算法用的是 md5
+ * @param {Object} signParamObj 需要签名的参数对象
  */ 
 const _createSign = signParamObj => {
   // 对对象中的 key 值进行排序 (对所有待签名参数按照字段名 key 的 ASCII 码从小到大排序（字典序）)
@@ -74,6 +79,8 @@ const _createSign = signParamObj => {
 /**
  * 创建微信预支付订单 id
  * https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=9_1
+ * @param {String<XML>} xmlFormData xml
+ * @return {Object} { prepay_id } 预支付 id
  */
 const _v2createPrePayOrder = async xmlFormData => {
   // 请求微信服务器统一下单接口
@@ -102,6 +109,8 @@ const _v2createPrePayOrder = async xmlFormData => {
 
 /**
  * 获取支付参数
+ * @param {Object} param 对象
+ * @return {Object} 前端支付所需参数
  */
 exports.v2getPayParam = async param => {
   const { openid, attach, body, total_fee, notify_url, spbill_create_ip } = param;

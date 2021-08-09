@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const request = require('request');
-const mpConfig = require('../config').mp;
-const baseUrl = require('../config').baseUrl;
+const { mp: mpConfig, baseUrl } = require('../config');
 const commonUtil = require('../utils');
 const mpPayUtil = require('../utils/mpPayUtil');
 const dbDao = require('../dao/db');
@@ -56,11 +55,12 @@ router.get('/getSession', async (req, res) => {
   */
 router.get('/v2Pay', async (req, res) => {
   const openid = req.query.userOpenid; // 用户的 openid
+  const total_fee = Number(req.query.money) * 100; // 支付金额 单位为分
   const attach = '支付附加数据'; // 附加数据
   const body = '小程序支付';  // 主体内容
-  const total_fee = Number(req.query.money) * 100; // 支付金额 单位为分
   const notify_url = `${ baseUrl }/api/mp/payCallback`; // 异步接收微信支付结果通知的回调地址，通知 url必须为外网可访问的url，不能携带参数。公网域名必须为 https
   const spbill_create_ip = '192.168.5.96'; // 终端ip (可填本地路由 ip)
+  
   const param = { openid, attach, body, total_fee, notify_url, spbill_create_ip };
   const payParam = await mpPayUtil.v2getPayParam(param);
   if (!payParam) return res.send(commonUtil.resFail('创建支付订单出错'));

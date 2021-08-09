@@ -32,7 +32,7 @@ exports.main = async (event, context) => {
     tradeType: 'JSAPI', // 交易类型
     spbillCreateIp : '127.0.0.1', // 终端IP
   });
-  console.log(res);
+  // console.log(res);
 
   const { returnCode, payment } = res;
   if (returnCode !== 'SUCCESS') return { message: '请求支付订单失败' };

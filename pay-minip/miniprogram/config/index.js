@@ -3,8 +3,8 @@ module.exports = {
   // 开发环境配置
   dev: {
     // serverBaseurl: 'http://localhost:3000'
-    serverBaseurl: 'http://192.168.5.96:3000' // 本机路由ip域名 + 端口
     // serverBaseurl: 'https://69c338953537.ngrok.io' // 本机路由ip域名 + 端口
+    serverBaseurl: 'http://192.168.5.133:3000' // 本机路由ip域名 + 端口
   },
   // 生产环境配置
   prod: {
