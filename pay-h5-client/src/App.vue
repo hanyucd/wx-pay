@@ -54,7 +54,7 @@ export default {
       // 通过 ready 接口处理成功验证
       wx.ready(() => {
         commonUtil.initShareInfo(wx);
-      })
+      });
     }
   }
 }
